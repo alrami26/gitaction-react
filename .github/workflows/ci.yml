@@ -26,9 +26,19 @@ jobs:
       - run: npm test -- --coverage
         env:
           CI: true
+      - name: Uplaod Test Coverage
+        uses: actions/upload-artifact@v1
+        with:
+          name: code-coverage
+          path: coverage
       - name: Build project
         if: github.event_name == 'push'
         run: npm run build
+      - name: Uplaod Build Folder
+        uses: actions/upload-artifact@v1
+        with:
+          name: build
+          path: build
       - name: Deploy staging
         if: github.event_name == 'push'
         run: npx surge --project ./build --domain painstaking-answer123.surge.sh
