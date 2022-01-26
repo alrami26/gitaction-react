@@ -40,6 +40,10 @@ jobs:
         with:
           name: build
           path: build
+      - name: Zip Build
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          zip -r build.zip ./build
       - name: Create Release Semantic Version
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: npx semantic-release
